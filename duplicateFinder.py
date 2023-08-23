@@ -9,15 +9,15 @@ def computeHash(file_name):
         data = f.read()
         return hashlib.sha256(data).hexdigest()
 
-def parseArguments(args):
+def parseArguments():
     parser = argparse.ArgumentParser(prog="DuplicateFider", description="Find and delete duplicate files.")
     parser.add_argument("-i", "--input", nargs="1", required=True, help="Directory to scan files. It include all subfolder at any depts")
     parser.add_argument("-o", "--output", nargs="1", required=True, help="Directory where to move/copy file that must be delete because duplicated")
     parser.add_argument("-a", "--action", nargs="?", required=False, choices=['c', 'm'], default='c', help="Action to do when a duplicate is found: 'c' [Default] for copying file in output directory, 'm' for move")
     args = parser.parse_args()
 
-def main(args):
-    parseArguments(args)
+def main():
+    parseArguments()
 
     not_duplicate = {}
     duplicates = {}
@@ -52,5 +52,5 @@ def main(args):
 
 if __name__ == "__main__":
     print("Find Duplicates")
-    main(sys.argv)
+    main()
     print("End, report\n", duplicates)
