@@ -17,6 +17,7 @@ def parseArguments():
     args = parser.parse_args()
 
 def main():
+    print("Find Duplicates")
     parseArguments()
 
     not_duplicate = {}
@@ -49,8 +50,8 @@ def main():
         else:
             print("Error", file_path, "is a folder!")
 
+    print("End, report\n", duplicates)
+
 
 if __name__ == "__main__":
-    print("Find Duplicates")
     main()
-    print("End, report\n", duplicates)
