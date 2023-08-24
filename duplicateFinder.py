@@ -3,6 +3,7 @@ import shutil
 import os
 import argparse
 import sys
+import glob
 
 def computeHash(file_name):
     with open(file_name, "rb") as f:
@@ -11,22 +12,23 @@ def computeHash(file_name):
 
 def parseArguments():
     parser = argparse.ArgumentParser(prog="DuplicateFider", description="Find and delete duplicate files.")
-    parser.add_argument("-i", "--input", nargs="1", required=True, help="Directory to scan files. It include all subfolder at any depts")
-    parser.add_argument("-o", "--output", nargs="1", required=True, help="Directory where to move/copy file that must be delete because duplicated")
-    parser.add_argument("-a", "--action", nargs="?", required=False, choices=['c', 'm'], default='c', help="Action to do when a duplicate is found: 'c' [Default] for copying file in output directory, 'm' for move")
-    args = parser.parse_args()
+    parser.add_argument("-i", "--input", dest="input", nargs="1", required=True, help="Directory to scan files. It include all subfolder at any depts. Hidden files are excluded.")
+    parser.add_argument("-o", "--output", dest="output", nargs="1", required=True, help="Directory where to move/copy file that must be delete because duplicated.")
+    parser.add_argument("-a", "--action", dest="action", nargs="?", required=False, choices=['c', 'm'], default='c', help="Action to do when a duplicate is found: 'c' [Default] for copying file in output directory, 'm' for move.")
+    return parser.parse_args()
 
 def main():
     print("Find Duplicates")
-    parseArguments()
+    input_cfg = parseArguments()
 
     not_duplicate = {}
     duplicates = {}
 
+    file_list = glob.glob(os.path.join(FILES_DIR_DELETED, "**/*"), recursive=True)
+    
     # Iterate directory
-    for file_path in os.listdir(FILES_DIR_TO_SCAN):
-        # check if current file_path is a file
-        full_name = os.path.join(FILES_DIR_TO_SCAN, file_path)
+    for full_name in file_list:
+        # check if current file is a file
         if os.path.isfile(full_name):
             sha_file = computeHash(full_name)
             if sha_file in not_duplicate:
@@ -36,6 +38,12 @@ def main():
                         "original": not_duplicate[sha_file]["path"]
                     }
                 })
+
+                # check this code block
+                base_out_dir = input_cfg.output
+                if (not base_out_dir.endswith('/')):
+                    base_dir += "/"
+
                 out_file_clone = os.path.join(FILES_DIR_DELETED, "DELETE_" + file_path)
                 shutil.copyfile(full_name, out_file_clone)
  
