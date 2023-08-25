@@ -5,8 +5,16 @@ import argparse
 import glob
 import pathlib
 
-def copy_file(from_, to):
-    pass
+def copy_or_move_file(from_, to, is_copy=True):
+    head_tail = os.path.split(to)
+    directory = head_tail[0]
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    if is_copy:
+        shutil.copyfile(from_, to)
+    else:
+        shutil.move(from_, to)
 
 
 # return directory without root path and file name
@@ -16,7 +24,7 @@ def remove_base_dir(full_file_name, base_dir):
 
     file_name = os.path.basename(full_file_name)
     len_base_dir = len(base_dir)
-    sub_path = full_file_name[len_base_dir:len_base_dir + (len(full_file_name) - len(file_name))]
+    sub_path = full_file_name[len_base_dir:len_base_dir + (len(full_file_name) - len_base_dir - len(file_name))]
     return sub_path, file_name
 
 
@@ -66,14 +74,13 @@ def main():
 
                 base_in_dir = str(input_cfg.input[0])
                 sub_path, file_name = remove_base_dir(full_name, base_in_dir)
-                print(sub_path)
                 out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
-                shutil.copyfile(full_name, out_file_clone)
+                copy_or_move_file(full_name, out_file_clone)
 
                 sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
                 out_file_original = os.path.join(input_cfg.output[0], sub_path,
                                                  "ORIGINAL_" + file_name)
-                shutil.copyfile(not_duplicate[sha_file]["path"], out_file_original)
+                copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
             else:
                 not_duplicate.update({
                     sha_file: {
