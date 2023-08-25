@@ -61,13 +61,13 @@ def main():
                 })
 
                 base_in_dir = input_cfg.input
-                destination_info = remove_base_dir(full_name, base_in_dir)
-                out_file_clone = os.path.join(input_cfg.output, destination_info[0], "DELETE_" + destination_info[1])
+                sub_path, file_name = remove_base_dir(full_name, base_in_dir)
+                out_file_clone = os.path.join(input_cfg.output, sub_path, "DELETE_" + file_name)
                 shutil.copyfile(full_name, out_file_clone)
 
-                destination_info = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
-                out_file_original = os.path.join(input_cfg.output, destination_info[0],
-                                                 "ORIGINAL_" + destination_info[1])
+                sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
+                out_file_original = os.path.join(input_cfg.output, sub_path,
+                                                 "ORIGINAL_" + file_name)
                 shutil.copyfile(not_duplicate[sha_file]["path"], out_file_original)
             else:
                 not_duplicate.update({
