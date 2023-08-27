@@ -42,10 +42,15 @@ def parse_arguments():
                         help="Directory to scan files. It include all subfolder at any depts. Hidden files are "
                              "excluded.")
     parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=pathlib.Path,
-                        help="Directory where to move/copy file that must be delete because duplicated.")
+                        help="Directory where to move/copy files that must be deleted because duplicated, they will have 'ORIGINAL_' in the name prefix. The same"
+                              "directory will be also used for copy of the original file if required (see option --copy original), they will have 'ORIGINAL_' in the name prefix.")
     parser.add_argument("-a", "--action", dest="action", nargs="?", required=False, choices=['c', 'm'], default='c',
                         help="Action to do when a duplicate is found: 'c' [Default] for copying file in output "
                              "directory, 'm' for move.")
+    parser.add_argument('-c', '--copy_original', dest="copy_original", required=False, action='store_true',
+                        help="Copy also original files in the output directory for comparison.")
+    parser.add_argument("-r", "--report", dest="report", nargs=1, required=False, type=pathlib.Path,
+                        help="Path of CSV report file. Omit it for no report.")
     return parser.parse_args()
 
 
@@ -75,12 +80,13 @@ def main():
                 base_in_dir = str(input_cfg.input[0])
                 sub_path, file_name = remove_base_dir(full_name, base_in_dir)
                 out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
-                copy_or_move_file(full_name, out_file_clone)
+                copy_or_move_file(full_name, out_file_clone, input_cfg.action=='c')
 
-                sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
-                out_file_original = os.path.join(input_cfg.output[0], sub_path,
-                                                 "ORIGINAL_" + file_name)
-                copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
+                if input_cfg.copy_original:
+                    sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
+                    out_file_original = os.path.join(input_cfg.output[0], sub_path,
+                                                    "ORIGINAL_" + file_name)
+                    copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
             else:
                 not_duplicate.update({
                     sha_file: {
