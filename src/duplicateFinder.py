@@ -41,7 +41,7 @@ def parse_arguments():
                                      description="Find and delete duplicate files. The oldest file is considerate the "
                                                  "original.")
     parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=pathlib.Path,
-                        help="Directory to scan files. It include all subfolder at any depts. Hidden files are "
+                        help="Directory to scan files. It include all subfolders at any depts. Hidden files are "
                              "excluded.")
     parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=pathlib.Path,
                         help="Directory where to move/copy files that must be deleted because duplicated, they will have 'ORIGINAL_' in the name prefix. The same"
