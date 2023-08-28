@@ -5,6 +5,8 @@ import argparse
 import glob
 import pathlib
 
+REPORT_CSV_HEADER = "ORIGINAL, DUPLICATE, COPYED/MOVED_DUPLICATE, ORIGINAL_COPY"
+
 def copy_or_move_file(from_, to, is_copy=True):
     head_tail = os.path.split(to)
     directory = head_tail[0]
@@ -59,42 +61,58 @@ def main():
     input_cfg = parse_arguments()
 
     not_duplicate = {}
-    duplicates = {}
 
     file_list = glob.glob(os.path.join(input_cfg.input[0], "**/*"), recursive=True)
     file_list = sorted(file_list, key=lambda t: os.path.getctime(t))
 
-    # Iterate directory
-    for full_name in file_list:
-        # check if current file is a file
-        if os.path.isfile(full_name):
-            sha_file = compute_hash(full_name)
-            if sha_file in not_duplicate:
-                duplicates.update({
-                    sha_file: {
-                        "path": full_name,
-                        "original": not_duplicate[sha_file]["path"]
-                    }
-                })
+    report_file = None
+    report_line = ""
+    if input_cfg.report is not None:
+        report_file = open(input_cfg.report, "a")
+        report_file.write(REPORT_CSV_HEADER + '\n')
 
-                base_in_dir = str(input_cfg.input[0])
-                sub_path, file_name = remove_base_dir(full_name, base_in_dir)
-                out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
-                copy_or_move_file(full_name, out_file_clone, input_cfg.action=='c')
+    try:
+        
+        for full_name in file_list:
+            
+            if os.path.isfile(full_name):
+                sha_file = compute_hash(full_name)
+                if sha_file in not_duplicate:
+                    print("Duplicates found, ORIGINAL:", not_duplicate[sha_file]["path"], ", DUPLICATED:", full_name)
+                    if (report_file is not None): 
+                        report_line += not_duplicate[sha_file]["path"] + "," + full_name + ","
 
-                if input_cfg.copy_original:
-                    sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
-                    out_file_original = os.path.join(input_cfg.output[0], sub_path,
-                                                    "ORIGINAL_" + file_name)
-                    copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
-            else:
-                not_duplicate.update({
-                    sha_file: {
-                        "path": full_name
-                    }
-                })
+                    base_in_dir = str(input_cfg.input[0])
+                    sub_path, file_name = remove_base_dir(full_name, base_in_dir)
+                    out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
+                    copy_or_move_file(full_name, out_file_clone, input_cfg.action=='c')
+                    
+                    if (report_file is not None): 
+                        report_line += out_file_clone + ","
 
-    print("End, report\n", duplicates)
+                    if input_cfg.copy_original:
+                        sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
+                        out_file_original = os.path.join(input_cfg.output[0], sub_path,
+                                                        "ORIGINAL_" + file_name)
+                        copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
+
+                        if (report_file is not None): 
+                            report_line += out_file_clone
+
+                    if report_file is not None:
+                        report_line += '\n'
+                        
+                else:
+                    not_duplicate.update({
+                        sha_file: {
+                            "path": full_name
+                        }
+                    })
+    finally:
+        if report_file is not None:
+            report_file.close()
+
+    print("End, processing\n")
 
 
 if __name__ == "__main__":
