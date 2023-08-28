@@ -52,7 +52,7 @@ def parse_arguments():
     parser.add_argument('-c', '--copy_original', dest="copy_original", required=False, action='store_true',
                         help="Copy also original files in the output directory for comparison.")
     parser.add_argument("-r", "--report", dest="report", nargs=1, required=False, type=pathlib.Path,
-                        help="Path of CSV report file. Omit it for no report.")
+                        help="Path of CSV(" + REPORT_CSV_HEADER + ") report file. Omit it for no report.")
     return parser.parse_args()
 
 
@@ -72,7 +72,7 @@ def main():
         report_file.write(REPORT_CSV_HEADER + '\n')
 
     try:
-        
+
         for full_name in file_list:
             
             if os.path.isfile(full_name):
