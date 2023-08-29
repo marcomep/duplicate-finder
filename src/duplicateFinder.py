@@ -5,7 +5,8 @@ import argparse
 import glob
 import pathlib
 
-REPORT_CSV_HEADER = "ORIGINAL, DUPLICATE, COPYED/MOVED_DUPLICATE, ORIGINAL_COPY"
+REPORT_CSV_HEADER = "ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY"
+
 
 def copy_or_move_file(from_, to, is_copy=True):
     head_tail = os.path.split(to)
@@ -37,15 +38,17 @@ def compute_hash(file_name):
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(prog="DuplicateFider",
+    parser = argparse.ArgumentParser(prog="DuplicateFinder",
                                      description="Find and delete duplicate files. The oldest file is considerate the "
                                                  "original.")
     parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=pathlib.Path,
-                        help="Directory to scan files. It include all subfolders at any depts. Hidden files are "
+                        help="Directory to scan files. It include all sub-folders at any depths. Hidden files are "
                              "excluded.")
     parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=pathlib.Path,
-                        help="Directory where to move/copy files that must be deleted because duplicated, they will have 'ORIGINAL_' in the name prefix. The same"
-                              "directory will be also used for copy of the original file if required (see option --copy original), they will have 'ORIGINAL_' in the name prefix.")
+                        help="Directory where to move/copy files that must be deleted because duplicated, they will "
+                             "have 'ORIGINAL_' in the name prefix. The same"
+                             "directory will be also used for copy of the original file if required (see option "
+                             "--copy original), they will have 'ORIGINAL_' in the name prefix.")
     parser.add_argument("-a", "--action", dest="action", nargs="?", required=False, choices=['c', 'm'], default='c',
                         help="Action to do when a duplicate is found: 'c' [Default] for copying file in output "
                              "directory, 'm' for move.")
@@ -74,34 +77,34 @@ def main():
     try:
 
         for full_name in file_list:
-            
+
             if os.path.isfile(full_name):
                 sha_file = compute_hash(full_name)
                 if sha_file in not_duplicate:
                     print("Duplicates found, ORIGINAL:", not_duplicate[sha_file]["path"], ", DUPLICATED:", full_name)
-                    if (report_file is not None): 
+                    if report_file is not None:
                         report_line += not_duplicate[sha_file]["path"] + "," + full_name + ","
 
                     base_in_dir = str(input_cfg.input[0])
                     sub_path, file_name = remove_base_dir(full_name, base_in_dir)
                     out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
-                    copy_or_move_file(full_name, out_file_clone, input_cfg.action=='c')
-                    
-                    if (report_file is not None): 
+                    copy_or_move_file(full_name, out_file_clone, input_cfg.action == 'c')
+
+                    if report_file is not None:
                         report_line += out_file_clone + ","
 
                     if input_cfg.copy_original:
                         sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
                         out_file_original = os.path.join(input_cfg.output[0], sub_path,
-                                                        "ORIGINAL_" + file_name)
+                                                         "ORIGINAL_" + file_name)
                         copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
 
-                        if (report_file is not None): 
+                        if report_file is not None:
                             report_line += out_file_clone
 
                     if report_file is not None:
                         report_line += '\n'
-                        
+
                 else:
                     not_duplicate.update({
                         sha_file: {
