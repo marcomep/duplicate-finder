@@ -19,7 +19,7 @@ jobs:
       with:
         path: src
 
-#    - uses: actions/upload-artifact@v3
-#      with:
-#        name: name-of-artifact
-#        path: src/dist/windows
+    - uses: actions/upload-artifact@v3
+      with:
+        name: name-of-artifact
+        path: src/dist/windows
