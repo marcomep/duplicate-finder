@@ -5,6 +5,7 @@ import argparse
 import glob
 import pathlib
 
+VERSION = 'v1.0'
 REPORT_CSV_HEADER = "ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY"
 
 
@@ -38,7 +39,7 @@ def compute_hash(file_name):
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(prog="DuplicateFinder",
+    parser = argparse.ArgumentParser(prog="DuplicateFinder " + VERSION,
                                      description="Find and delete duplicate files. The oldest file is considerate the "
                                                  "original.")
     parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=pathlib.Path,
