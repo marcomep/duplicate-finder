@@ -18,7 +18,7 @@ jobs:
         python-version: '3.10'
 
     - name: Package Application Windows
-      uses:  JackMcKew/pyinstaller-action-linux@python3.10      
+      uses: JackMcKew/pyinstaller-action-linux@python3-10-pyinstaller-5-3     
       with:
         path: src
 
@@ -28,7 +28,7 @@ jobs:
         path: src/dist/windows
 
     - name: Package Application Linux
-      uses: JackMcKew/pyinstaller-action-linux@python3-10-pyinstaller-5-3
+      uses: JackMcKew/pyinstaller-action-linux@python3.10
       with:
         path: src
 
