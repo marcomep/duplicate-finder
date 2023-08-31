@@ -17,12 +17,22 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Package Application
+    - name: Package Application Windows
       uses: JackMcKew/pyinstaller-action-windows@python3-10-pyinstaller-5-3
       with:
         path: src
 
     - uses: actions/upload-artifact@v3
       with:
-        name: name-of-artifact
+        name: duplicate-finder
         path: src/dist/windows
+
+    - name: Package Application Linux
+      uses: JackMcKew/pyinstaller-action-linux@python3-10-pyinstaller-5-3
+      with:
+        path: src
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: duplicate-finder
+        path: src/dist/linux
