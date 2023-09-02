@@ -38,7 +38,7 @@ E.g. Linux
 ./duplicate-finder *options*
 ```
 
-If you have download source code (method 2) you can simply run the Python script with Python3 runtime.
+If you have download source code (method 2) you can simply run the Python script in src folder with Python3 runtime.
 ```bash
 python3 duplicate-finder.py *options*
 ```
