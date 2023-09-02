@@ -21,6 +21,6 @@ Requirements
 
 You can download the source clicking [here](https://duckduckgo.com) or clone this repository (it require a Git client installed) with the following command.
 
-  git clone https://duckduckgo.com
+`git clone https://duckduckgo.com`
 
 ### Run the application
