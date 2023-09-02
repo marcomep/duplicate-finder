@@ -71,14 +71,14 @@ def main():
     file_list.sort(key=os.path.getctime)
 
     report_lines = []
-
+    duplicates_found = 0
     for full_name in file_list:
         report_line = ""
         if os.path.isfile(full_name):
             sha_file = compute_hash(full_name)
             if sha_file in not_duplicate:
                 print("Duplicates found, ORIGINAL:", not_duplicate[sha_file]["path"], ", DUPLICATED:", full_name)
-
+                duplicates_found += 1
                 if input_cfg.report is not None:
                     report_line += not_duplicate[sha_file]["path"] + "," + full_name + ","
 
@@ -115,7 +115,7 @@ def main():
             fp.write(REPORT_CSV_HEADER + '\n')
             fp.write("\n".join(line for line in report_lines))
 
-    print("End, processing\n")
+    print("Found", duplicates_found, "duplicates"\n")
 
 
 if __name__ == "__main__":
