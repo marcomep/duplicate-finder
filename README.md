@@ -48,7 +48,7 @@ For understand the options you can use the help provided with duplicate-finder. 
 ```
 usage: duplicate-finder v1.0 [-h] -i INPUT -o OUTPUT [-a [{c,m}]] [-c] [-r REPORT]
 
-Find and delete duplicate files. The oldest file according to its CTIME is is considerate the original one to keep. Here CTIME refers to the last metadata change for specified path in UNIX while in Windows, it refers to path creation time
+Find and delete duplicate files. The oldest file according to its CTIME is considerate the original one to keep. Here CTIME refers to the last metadata change for specified path in UNIX while in Windows, it refers to path creation time
 
 options:
   -h, --help            show this help message and exit
