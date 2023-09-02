@@ -52,7 +52,7 @@ def parse_arguments():
                              "have 'ORIGINAL_' in the name prefix. The same"
                              "directory will be also used for copy of the original file if required (see option "
                              "--copy original), they will have 'ORIGINAL_' in the name prefix.")
-    parser.add_argument("-a", "--action", dest="action", nargs="?", required=False, choices=['c', 'm'], default='c',
+    parser.add_argument("-a", "--action", dest="action", nargs="1", required=False, choices=['c', 'm'], default='c',
                         help="Action to do when a duplicate is found: 'c' [Default] for copying file in output "
                              "directory, 'm' for move.")
     parser.add_argument('-c', '--copy_original', dest="copy_original", required=False, action='store_true',
