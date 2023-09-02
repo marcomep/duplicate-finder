@@ -41,7 +41,7 @@ def compute_hash(file_name):
 def parse_arguments():
     parser = argparse.ArgumentParser(prog="duplicate-finder " + VERSION,
                                      description="Find and delete duplicate files. The oldest file according to its "
-                                                 "CTIME is is considerate the original one to keep. Here CTIME refers "
+                                                 "CTIME is considerate the original one to keep. Here CTIME refers "
                                                  "to the last metadata change for specified path in UNIX while in "
                                                  "Windows, it refers to path creation time")
     parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=pathlib.Path,
