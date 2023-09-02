@@ -1,5 +1,5 @@
 # duplicate-finder
-Find Duplicate and remove them!
+duplicate-finder is simple command line tool to find duplicate file and remove them.
 
 ## Manual
 
