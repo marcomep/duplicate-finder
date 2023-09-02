@@ -115,7 +115,7 @@ def main():
             fp.write(REPORT_CSV_HEADER + '\n')
             fp.write("\n".join(line for line in report_lines))
 
-    print("Found", duplicates_found, "duplicates"\n")
+    print("Found", duplicates_found, "duplicates\n")
 
 
 if __name__ == "__main__":
