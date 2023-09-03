@@ -37,6 +37,11 @@ def compute_hash(file_name):
         data = f.read()
         return hashlib.sha256(data).hexdigest()
 
+def ExistingWritableDir(dir_name):
+    if os.path.exists(dir_name) and os.path.isdir(dir_name) and os.access(dir_name, os.W_OK):
+        return dir_name  # you can return an updated value if needed.
+    else:
+        raise argparse.ArgumentTypeError(f"{dir_name} is not an existing writable dir")
 
 def parse_arguments():
     parser = argparse.ArgumentParser(prog="duplicate-finder " + VERSION,
@@ -77,7 +82,7 @@ def main():
         if os.path.isfile(full_name):
             sha_file = compute_hash(full_name)
             if sha_file in not_duplicate:
-                print("Duplicates found, ORIGINAL:", not_duplicate[sha_file]["path"], ", DUPLICATED:", full_name)
+                print("Duplicates found:\n\tORIGINAL:", not_duplicate[sha_file]["path"], "\n\tDUPLICATED:", full_name)
                 duplicates_found += 1
                 if input_cfg.report is not None:
                     report_line += not_duplicate[sha_file]["path"] + "," + full_name + ","
