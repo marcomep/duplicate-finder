@@ -37,11 +37,20 @@ def compute_hash(file_name):
         data = f.read()
         return hashlib.sha256(data).hexdigest()
 
-def ExistingWritableDir(dir_name):
-    if os.path.exists(dir_name) and os.path.isdir(dir_name) and os.access(dir_name, os.W_OK):
-        return dir_name  # you can return an updated value if needed.
+def check_report_file(arg_file):
+    if os.path.isdir(arg_file):
+        raise argparse.ArgumentTypeError(f"{arg_file} is not a file")
+    dir_to_check = os.path.split(arg_dir_path)[0]
+    if os.path.exists(dir_to_check) and os.access(dir_to_check, os.W_OK):
+        return arg_file
     else:
-        raise argparse.ArgumentTypeError(f"{dir_name} is not an existing writable dir")
+        raise argparse.ArgumentTypeError(f"{arg_file} is not a writable file")
+
+def check_dir_in_out(arg_dir_path):
+    if os.path.exists(arg_dir_path) and os.path.isdir(arg_dir_path) and os.access(arg_dir_path, os.R_OK):
+        return arg_dir_path
+    else:
+        raise argparse.ArgumentTypeError(f"{arg_dir_path} is not an existing readable directory")
 
 def parse_arguments():
     parser = argparse.ArgumentParser(prog="duplicate-finder " + VERSION,
@@ -49,10 +58,10 @@ def parse_arguments():
                                                  "CTIME is considerate the original one to keep. Here CTIME refers "
                                                  "to the last metadata change for specified path in UNIX while in "
                                                  "Windows, it refers to path creation time")
-    parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=pathlib.Path,
+    parser.add_argument("-i", "--input", dest="input", nargs=1, required=True, type=check_dir_in_out,
                         help="Directory to scan files. It include all sub-folders at any depths. Hidden files are "
                              "excluded.")
-    parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=pathlib.Path,
+    parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=check_report_file,
                         help="Directory where to move/copy files that must be deleted because duplicated, they will "
                              "have 'ORIGINAL_' in the name prefix. The same"
                              "directory will be also used for copy of the original file if required (see option "
@@ -72,7 +81,7 @@ def main():
 
     not_duplicate = {}
 
-    file_list = glob.glob(os.path.join(input_cfg.input[0], "**/*"), recursive=True)
+    file_list = glob.glob(os.path.join(input_cfg.input, "**/*"), recursive=True)
     file_list.sort(key=os.path.getctime)
 
     report_lines = []
@@ -87,9 +96,9 @@ def main():
                 if input_cfg.report is not None:
                     report_line += not_duplicate[sha_file]["path"] + "," + full_name + ","
 
-                base_in_dir = str(input_cfg.input[0])
+                base_in_dir = str(input_cfg.input)
                 sub_path, file_name = remove_base_dir(full_name, base_in_dir)
-                out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
+                out_file_clone = os.path.join(input_cfg.output, sub_path, "DELETE_" + file_name)
                 copy_or_move_file(full_name, out_file_clone, input_cfg.action == 'c')
 
                 if input_cfg.report is not None:
@@ -97,7 +106,7 @@ def main():
 
                 if input_cfg.copy_original:
                     sub_path, file_name = remove_base_dir(not_duplicate[sha_file]["path"], base_in_dir)
-                    out_file_original = os.path.join(input_cfg.output[0], sub_path,
+                    out_file_original = os.path.join(input_cfg.output, sub_path,
                                                      "ORIGINAL_" + file_name)
                     copy_or_move_file(not_duplicate[sha_file]["path"], out_file_original)
 
@@ -116,7 +125,7 @@ def main():
 
     if input_cfg.report is not None:
         report_lines = sorted(report_lines)
-        with open(input_cfg.report[0], 'w') as fp:
+        with open(input_cfg.report, 'w') as fp:
             fp.write(REPORT_CSV_HEADER + '\n')
             fp.write("\n".join(line for line in report_lines))
 
