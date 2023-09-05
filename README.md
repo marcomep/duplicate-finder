@@ -29,12 +29,12 @@ git clone https://duckduckgo.com
 If you have download binaries (method 1) to run duplicate-finder you have simply run it from command line.
 
 E.g. Windows
-```bat
+```
 duplicate-finder.exe *options*
 ```
 
 E.g. Linux
-```bash
+```
 ./duplicate-finder *options*
 ```
 
@@ -63,5 +63,3 @@ options:
                         Path of CSV(ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY) report file. Omit it for no report.
 ```
 
-# A practical example
-TODO
