@@ -5,14 +5,13 @@
 
 ### Download application
 
-#### Method 1: download binaries for Windows and Linux
+#### Method 1: download binaries for Linux
 
-The easiest way to obtain duplicate-finder tool is to download the binaries for Windows 10/11 or Linux (all modern distros and versions are supported.
+The easiest way to obtain duplicate-finder tool is to download the binaries or Linux (all modern distros and versions are supported.
 
-- For Windows you can download the last version [here](https://duckduckgo.com)
 - For Linux you can download the last version [here](https://duckduckgo.com)
 
-#### Method 2: download python script for all Operating System, including MacOS
+#### Method 2: download python script for all Operating System, including Windows & MacOS
 
 It's always possible to download the Python source code and run it on a Python3 interpreter on all O.S.
 
