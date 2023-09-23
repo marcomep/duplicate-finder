@@ -1,13 +1,13 @@
 # duplicate-finder
 **duplicate-finder** is simple command line tool to find duplicate files and remove them.
 
-## Manual
+## Installation
 
 ### Download application
 
 #### Method 1: download binaries for Linux
 
-The easiest way to obtain duplicate-finder tool is to download the binaries or Linux (all modern distros and versions are supported.
+On Linux the easiest way to obtain duplicate-finder tool is to download the binaries (all modern distros and versions are supported.
 
 - For Linux you can download the last version [here](https://duckduckgo.com)
 
@@ -18,26 +18,24 @@ It's always possible to download the Python source code and run it on a Python3 
 Requirements
 - Python 3 version >= 3.10. On older versions find-duplicate can works but it has not been tested.
 
-You can download the source clicking [here](https://duckduckgo.com) or clone this repository (it require a Git client installed) with the following command:
+You can download the source code clicking [here](https://duckduckgo.com) or cloning this repository (it require a Git client installed) with the following command:
 
 ```bash
 git clone https://duckduckgo.com
 ```
 
 ### Run the application
-If you have download binaries (method 1) to run duplicate-finder you have simply run it from command line.
+If you have download binaries (method 1) to run duplicate-finder you have simply unzip the archive downloaded and run it from command line.
 
-E.g. Windows
-```
-duplicate-finder.exe *options*
-```
-
-E.g. Linux
 ```
 ./duplicate-finder *options*
 ```
 
-If you have download source code (method 2) you can simply run the Python script in src folder with Python3 runtime.
+If you have download source code (method 2) or cloned repository you have simply:
+
+1. unzip the archive if you have downloaded the source code 
+2. run the Python script in *src* folder with Python3 runtime.
+
 ```bash
 python3 duplicate-finder.py *options*
 ```
