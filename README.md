@@ -14,7 +14,7 @@ On Linux the easiest way to obtain duplicate-finder tool is to download the bina
 It's always possible to download the Python source code and run it on a Python3 interpreter on all O.S.
 
 Requirements
-- Python 3 version >= 3.10. On older versions find-duplicate can works but it has not been tested.
+- Python 3 version >= 3.10. On older Python versions find-duplicate can works but it has not been tested.
 
 You can download the source code clicking [here](https://duckduckgo.com) or cloning this repository (it require a Git client installed) with the following command:
 
