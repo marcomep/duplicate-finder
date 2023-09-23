@@ -58,3 +58,21 @@ options:
                         Path of CSV(ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY) report file. Omit it for no report.
 ```
 
+## Example
+
+Below some example of duplicate-finder usage.
+
+1. Search duplicates in /in/dir dir and all sub-directories and move duplicated found in /out/dir. Then create a report summary file of the operations done in the current directory.
+```
+duplicate-finder -i /in/dir -o /out/dir -a m -r report.csv
+```
+
+2. Search duplicates in /in/dir dir and all sub-directories and copy duplicated found in /out/dir. In this case the duplicated file is still present in /in/dir: any files input in the input dir will not be touched in any way. Then create a report summary file of the operations done in the current directory.
+```
+duplicate-finder -i /in/dir -o /out/dir -a c --report report.csv
+```
+
+3. Search duplicates in /in/dir dir and all sub-directories and move duplicated found in /out/dir. In the /out/dir will be copied also original files. No report file will be generated.
+```
+duplicate-finder --input /in/dir --output /out/dir --action c --copy_original
+```
