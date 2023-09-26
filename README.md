@@ -58,7 +58,7 @@ options:
                         Path of CSV(ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY) report file. Omit it for no report.
 ```
 
-## Example
+## Examples
 
 Below some example of duplicate-finder usage.
 
