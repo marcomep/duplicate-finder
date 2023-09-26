@@ -19,7 +19,7 @@ Requirements
 You can download the source code clicking [here](https://duckduckgo.com) or cloning this repository (it require a Git client installed) with the following command:
 
 ```bash
-git clone https://duckduckgo.com
+git clone https://github.com/marcomep/duplicate-finder.git
 ```
 
 ## Run the application
