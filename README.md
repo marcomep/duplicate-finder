@@ -16,7 +16,7 @@ It's always possible to download the Python source code and run it on a Python3 
 Requirements
 - Python 3 version >= 3.10. On older Python versions find-duplicate can works but it has not been tested.
 
-You can download the source code clicking [here](https://duckduckgo.com) or cloning this repository (it require a Git client installed) with the following command:
+You can download the source code clicking [here](https://github.com/marcomep/duplicate-finder/archive/refs/heads/main.zip) or cloning this repository (it require a Git client installed) with the following command:
 
 ```bash
 git clone https://github.com/marcomep/duplicate-finder.git
