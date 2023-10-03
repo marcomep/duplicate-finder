@@ -41,7 +41,7 @@ python3 duplicate-finder.py *options*
 For understand the options you can use the help provided with duplicate-finder. It is also reported below.
 
 ```
-usage: duplicate-finder v1.0 [-h] -i INPUT -o OUTPUT [-a [{c,m}]] [-c] [-r REPORT]
+usage: duplicate-finder v1.0 [-h] -i INPUT -o OUTPUT [-a {c,m}] [-c] [-r REPORT]
 
 Find and delete duplicate files. The oldest file according to its CTIME is considerate the original one to keep. Here CTIME refers to the last metadata change for specified path in UNIX while in Windows, it refers to path creation time
 
@@ -50,8 +50,9 @@ options:
   -i INPUT, --input INPUT
                         Directory to scan files. It include all sub-folders at any depths. Hidden files are excluded.
   -o OUTPUT, --output OUTPUT
-                        Directory where to move/copy files that must be deleted because duplicated, they will have 'ORIGINAL_' in the name prefix. The samedirectory will be also used for copy of the original file if required (see option --copy original), they will have 'ORIGINAL_' in the name prefix.
-  -a [{c,m}], --action [{c,m}]
+                        Directory where to move/copy files (with their sub-directory) that must be deleted because duplicated. Files in output directory they will have 'DELETED_' in the name prefix. The same directory will be also used for copy of the original file if required (see option --copy original),
+                        they will have 'ORIGINAL_' in the name prefix.
+  -a {c,m}, --action {c,m}
                         Action to do when a duplicate is found: 'c' [Default] for copying file in output directory, 'm' for move.
   -c, --copy_original   Copy also original files in the output directory for comparison.
   -r REPORT, --report REPORT
@@ -62,17 +63,17 @@ options:
 
 Below some example of duplicate-finder usage.
 
-1. Search duplicates in /in/dir dir and all sub-directories and move duplicated found in /out/dir. Then create a report summary file of the operations done in the current directory.
+1. Search duplicates in /in/dir dir and all sub-directories and move duplicated found in /out/dir. Then create a report summary file of the operations done in the current directory. Linux binary command is used.
 ```
-duplicate-finder -i /in/dir -o /out/dir -a m -r report.csv
+./duplicate-finder -i /in/dir -o /out/dir -a m -r report.csv
 ```
 
 2. Search duplicates in /in/dir dir and all sub-directories and copy duplicated found in /out/dir. In this case the duplicated file is still present in /in/dir: any files input in the input dir will not be touched in any way. Then create a report summary file of the operations done in the current directory.
 ```
-duplicate-finder -i /in/dir -o /out/dir -a c --report report.csv
+python3 duplicate-finder.py -i /in/dir -o /out/dir -a c --report report.csv
 ```
 
 3. Search duplicates in /in/dir dir and all sub-directories and move duplicated found in /out/dir. In the /out/dir will be copied also original files. No report file will be generated.
 ```
-duplicate-finder --input /in/dir --output /out/dir --action c --copy_original
+python3 duplicate-finder.py --input /in/dir --output /out/dir --action c --copy_original
 ```
