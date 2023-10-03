@@ -65,10 +65,10 @@ def parse_arguments():
                         help="Directory to scan files. It include all sub-folders at any depths. Hidden files are "
                              "excluded.")
     parser.add_argument("-o", "--output", dest="output", nargs=1, required=True, type=check_dir_in_out,
-                        help="Directory where to move/copy files that must be deleted because duplicated, they will "
-                             "have 'ORIGINAL_' in the name prefix. The same"
-                             "directory will be also used for copy of the original file if required (see option "
-                             "--copy original), they will have 'ORIGINAL_' in the name prefix.")
+                        help="Directory where to move/copy files (with their sub-directory) that must be deleted "
+                             "because duplicated. Files in output directory they will have 'DELETED_' in the name "
+                             "prefix. The same directory will be also used for copy of the original file if required "
+                             "(see option --copy original), they will have 'ORIGINAL_' in the name prefix.")
     parser.add_argument("-a", "--action", dest="action", nargs=1, required=False, choices=['c', 'm'], default='c',
                         help="Action to do when a duplicate is found: 'c' [Default] for copying file in output "
                              "directory, 'm' for move.")
@@ -102,7 +102,7 @@ def main():
                 base_in_dir = str(input_cfg.input[0])
                 sub_path, file_name = remove_base_dir(full_name, base_in_dir)
                 out_file_clone = os.path.join(input_cfg.output[0], sub_path, "DELETE_" + file_name)
-                copy_or_move_file(full_name, out_file_clone, input_cfg.action == 'c')
+                copy_or_move_file(full_name, out_file_clone, input_cfg.action[0] == 'c')
 
                 if input_cfg.report is not None:
                     report_line += out_file_clone + ","
@@ -130,7 +130,8 @@ def main():
         report_lines = sorted(report_lines)
         with open(input_cfg.report[0], 'w') as fp:
             fp.write(REPORT_CSV_HEADER + '\n')
-            fp.write("\n".join(line for line in report_lines))
+            for line in report_lines:
+                fp.write(line + '\n')
 
     print("Found", duplicates_found, "duplicates\n")
 
