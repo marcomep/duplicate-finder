@@ -4,7 +4,7 @@ import hashlib
 import os
 import shutil
 
-VERSION = 'v1.0'
+VERSION = 'v1.0.0'
 REPORT_CSV_HEADER = "ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY"
 
 
