@@ -61,7 +61,7 @@ options:
 
 ### Report file
 
-As described before, duplicate-finder can generate a CSV file containing information about the actions done when a duplicate has been found. It has one line for each duplicate file found, and each line is composed by multiple fields described below:
+As described before, duplicate-finder can generate a CSV file containing information about the actions done when a duplicate has been found. It has one line for each duplicate file found, and each line is composed by multiple fields described below.
 
 - ORIGINAL: path in input directory of the original file
 - DUPLICATE: path in input directory of the duplicate file
