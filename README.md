@@ -7,7 +7,7 @@
 
 On Linux the easiest way to obtain duplicate-finder tool is to download the binaries (all modern distros and versions are supported.
 
-- For Linux you can download the last version [here]([https://duckduckgo.com](https://github.com/marcomep/duplicate-finder/releases))
+- For Linux you can find the compiled last version [here](https://github.com/marcomep/duplicate-finder/releases)
 
 ### Method 2: download python script for all Operating System, including Windows & MacOS
 
@@ -16,7 +16,7 @@ It's always possible to download the Python source code and run it on a Python3 
 Requirements
 - Python 3 version >= 3.10. On older Python versions find-duplicate can works but it has not been tested.
 
-You can download the source code clicking [here](https://github.com/marcomep/duplicate-finder/archive/refs/heads/main.zip) or cloning this repository (it require a Git client installed) with the following command:
+You can find the source code clicking [here](https://github.com/marcomep/duplicate-finder/releases) or cloning this repository (it require a Git client installed) with the following command:
 
 ```bash
 git clone https://github.com/marcomep/duplicate-finder.git
