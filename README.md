@@ -7,7 +7,7 @@
 
 On Linux the easiest way to obtain duplicate-finder tool is to download the binaries (all modern distros and versions are supported.
 
-- For Linux you can download the last version [here](https://duckduckgo.com)
+- For Linux you can download the last version [here]([https://duckduckgo.com](https://github.com/marcomep/duplicate-finder/releases))
 
 ### Method 2: download python script for all Operating System, including Windows & MacOS
 
