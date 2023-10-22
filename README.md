@@ -59,6 +59,15 @@ options:
                         Path of CSV(ORIGINAL, DUPLICATE, COPIED/MOVED_DUPLICATE, ORIGINAL_COPY) report file. Omit it for no report.
 ```
 
+### Report file
+
+As described before, duplicate-finder can generate a CSV file containing information about the actions done when a duplicate has been found. It has one line for each duplicate file found, and each line is composed by multiple fields described below:
+
+- ORIGINAL: path in input directory of the original file
+- DUPLICATE: path in input directory of the duplicate file
+- COPIED/MOVED_DUPLICATE: path in output directory where the duplicate found has been moved or copied
+- ORIGINAL_COPY: path in output directory where the original file found has been copied
+
 ## Examples
 
 Below some example of duplicate-finder usage.
