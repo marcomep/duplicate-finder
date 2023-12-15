@@ -5,7 +5,7 @@
 
 ### Method 1: download binaries for Linux
 
-On Linux the easiest way to obtain duplicate-finder tool is to download the binaries (all modern distros and versions are supported.
+On Linux the easiest way to obtain duplicate-finder tool is to download the binaries (all modern distros and versions are supported).
 
 - For Linux you can find the compiled last version [here](https://github.com/marcomep/duplicate-finder/releases)
 
