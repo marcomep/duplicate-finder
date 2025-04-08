@@ -1,5 +1,5 @@
 # duplicate-finder
-**duplicate-finder** is simple command line tool to find duplicate files and possibly remove them.
+**duplicate-finder** is a simple command line tool to find duplicate files and possibly remove them.
 
 ## Download application
 
@@ -31,7 +31,7 @@ If you have download binaries (method 1) to run duplicate-finder you have simply
 
 If you have download source code (method 2) or cloned repository you have simply:
 
-1. unzip the archive if you have downloaded the source code 
+1. unzip the archive 
 2. run the Python script in *src* folder with Python3 runtime.
 
 ```bash
@@ -43,7 +43,7 @@ For understand the options you can use the help provided with duplicate-finder. 
 ```
 usage: duplicate-finder v1.0.1 [-h] -i INPUT -o OUTPUT [-a {c,m}] [-c] [-r REPORT]
 
-Find and delete duplicate files. The oldest file according to its CTIME is considerate the original one to keep. Here CTIME refers to the last metadata change for specified path in UNIX while in Windows, it refers to path creation time
+Find and delete duplicate files. The oldest file according to its CTIME is considerate the original one to keep. Here CTIME refers to the last metadata change for specified path in UNIX while in Windows, it refers to creation time
 
 options:
   -h, --help            show this help message and exit
