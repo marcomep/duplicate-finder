@@ -9,7 +9,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,7 +25,7 @@ jobs:
       - name: Build with PyInstaller
         run: |
           pyinstaller duplicate-finder.py --onefile
-          
+
       - name: Upload executable
         uses: actions/upload-artifact@v3
         with:
