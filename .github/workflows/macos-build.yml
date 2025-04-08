@@ -27,7 +27,7 @@ jobs:
           pyinstaller src/duplicate-finder.py --onefile
 
       - name: Upload executable
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-executable
           path: dist/duplicate-finder
