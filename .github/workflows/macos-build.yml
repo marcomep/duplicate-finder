@@ -24,7 +24,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller duplicate-finder.py --onefile
+          pyinstaller src/duplicate-finder.py --onefile
 
       - name: Upload executable
         uses: actions/upload-artifact@v3
